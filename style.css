@@ -1,5 +1,5 @@
 body {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif, sans-serif;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     margin: 0;
@@ -125,4 +125,28 @@ button[type="submit"]:hover {
 
 #results a:hover {
     background-color: #0069d9;
+}
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9); /* Slightly shrink for effect */
+    }
+    to {
+        opacity: 1;
+        transform: scale(1); /* Back to normal size */
+    }
+}
+
+/* Apply the animation to each result */
+#results > div {
+    animation: fadeIn 0.6s ease-in-out;
+    background-color: #928484;
+    border: 8px solid transparent;
+    border-image: url('https://img.freepik.com/premium-vector/seamless-pattern-with-fast-food-illustrations-pattern-element-poster-wrapping-paper-illustration_124137-677.jpg?w=826') 30 round;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
 }
