@@ -29,29 +29,27 @@
             background-repeat: no-repeat;
             animation: moveBackground 20s linear infinite;
         }
-/* Animation for moving the background vertically downwards */
-@keyframes moveBackground {
-    100% {
-        background-position: 0 0; /* Start at the top */
-    }
-    0% {
-        background-position: 0 100%; /* Move to the bottom */
-    }
-}
+        /* Animation for moving the background vertically downwards */
+        @keyframes moveBackground {
+            100% {
+                background-position: 0 0; /* Start at the top */
+            }
+            0% {
+                background-position: 0 100%; /* Move to the bottom */
+            }
+        }
 
-
-h1 {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 40px;
-    font-weight: bold;
-    margin: 0;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    background-color: rgba(79, 59, 47, 0.7); /* Soft brown background */
-    display: inline-block;
-    border-radius: 15px; /* Rounded corners */
-}
-
+        h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 40px;
+            font-weight: bold;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            background-color: rgba(79, 59, 47, 0.7); /* Soft brown background */
+            display: inline-block;
+            border-radius: 15px; /* Rounded corners */
+        }
 
         form {
             display: flex;
@@ -67,6 +65,15 @@ h1 {
             font-size: 16px;
             padding: 12px;
             width: 300px;
+        }
+
+        select {
+            background-color: #fff;
+            border: 2px solid #d1b59e;
+            border-radius: 8px;
+            font-size: 16px;
+            padding: 12px;
+            margin-left: 10px;
         }
 
         button[type="submit"] {
@@ -160,6 +167,22 @@ h1 {
         #results a:hover {
             background-color: #7f4e33; /* Slightly darker brown */
         }
+
+        #load-more {
+            display: none;
+            background-color: #4f3b2f; /* Dark brown */
+            border-radius: 8px;
+            color: #fff;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            text-align: center;
+            margin: 20px auto;
+        }
+
+        #load-more:hover {
+            background-color: #3f2b1f;
+        }
     </style>
 </head>
 <body>
@@ -169,17 +192,29 @@ h1 {
     <div class="container">
         <form>
             <input type="text" id="search" placeholder="Enter ingredients, e.g., tomato, cheese">
+            <select id="api-choice">
+                <option value="edamam">Edamam</option>
+                <option value="spoonacular">Spoonacular</option>
+            </select>
             <button type="submit" id="submit" class="btn">Search Recipes</button>
         </form>
         <div id="results">
             <!-- Recipe results will appear here -->
         </div>
+        <button id="load-more">Load More</button>
     </div>
 
     <script>
         const searchForm = document.querySelector('form');
         const searchInput = document.querySelector('#search');
         const resultsList = document.querySelector('#results');
+        const apiChoice = document.querySelector('#api-choice');
+        const loadMoreButton = document.querySelector('#load-more');
+        
+        let currentPage = 0;
+        let totalResults = 0;
+        let totalPages = 0;
+        let searchValue = ''; // To store the search query
 
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -187,34 +222,76 @@ h1 {
         });
 
         async function searchRecipes() {
-            const searchValue = searchInput.value.trim();
-            const response = await fetch(`https://api.edamam.com/search?q=${searchValue}&app_id=7aa516a5&app_key=dc836a223fb788b11ae390504d9e97ce&from=0&to=10`);
+            searchValue = searchInput.value.trim(); // Store search input value
+            const selectedAPI = apiChoice.value;
+
+            if (searchValue === '') return; // Don't search if the input is empty
+
+            currentPage = 0; // Reset to page 0 whenever new search is performed
+            resultsList.innerHTML = ''; // Clear previous results
+            loadMoreButton.style.display = 'none'; // Hide the load more button initially
+
+            let url = '';
+
+            if (selectedAPI === 'edamam') {
+                url = `https://api.edamam.com/search?q=${searchValue}&app_id=7aa516a5&app_key=dc836a223fb788b11ae390504d9e97ce&from=${currentPage * 10}&to=${(currentPage + 1) * 10}`;
+            } else if (selectedAPI === 'spoonacular') {
+                const spoonacularApiKey = '7e1f0ffae28d42f7b7c85ef36005f46f';
+                url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${spoonacularApiKey}&number=10&offset=${currentPage * 10}`;
+            }
+
+            const response = await fetch(url);
             const data = await response.json();
-            displayRecipes(data.hits);
+            handleAPIResponse(data, selectedAPI);
+        }
+
+        function handleAPIResponse(data, selectedAPI) {
+            let recipes = [];
+            totalResults = 0;
+            totalPages = 0;
+
+            if (selectedAPI === 'edamam') {
+                recipes = data.hits;
+                totalResults = data.count;
+                totalPages = Math.ceil(totalResults / 10);
+            } else if (selectedAPI === 'spoonacular') {
+                recipes = data.results;
+                totalResults = data.totalResults;
+                totalPages = Math.ceil(totalResults / 10);
+            }
+
+            displayRecipes(recipes);
+            if (currentPage < totalPages - 1) {
+                loadMoreButton.style.display = 'block';
+            } else {
+                loadMoreButton.style.display = 'none';
+            }
         }
 
         function displayRecipes(recipes) {
             let html = '';
             recipes.forEach((recipe) => {
                 html += `
-                <div>
-                    <img src="${recipe.recipe.image}" alt="${recipe.recipe.label}">
-                    <h3>${recipe.recipe.label}</h3>
-                    <ul>
-                        ${recipe.recipe.ingredientLines.map(ingredient => `<li>${ingredient}</li>`).join('')}
-                    </ul>
-                    <a href="${recipe.recipe.url}" target="_blank">View Recipe</a>
-                </div>`;
+                    <div>
+                        <img src="${recipe.image || recipe.recipe.image}" alt="${recipe.title || recipe.recipe.label}">
+                        <h3>${recipe.title || recipe.recipe.label}</h3>
+                        <ul>
+                            ${(recipe.ingredients || recipe.recipe.ingredientLines).map(ingredient => `<li>${ingredient}</li>`).join('')}
+                        </ul>
+                        <a href="${recipe.sourceUrl || recipe.recipe.url}" target="_blank">View Recipe</a>
+                    </div>
+                `;
             });
-            resultsList.innerHTML = html;
+            resultsList.innerHTML += html; // Append new results
 
-            // Remove the fade-in class to restart the animation
-            resultsList.classList.remove('fade-in');
-            
-            // Trigger the fade-in effect again
-            void resultsList.offsetWidth; // This forces a reflow so the animation will restart
+            // Trigger the fade-in effect
             resultsList.classList.add('fade-in');
         }
+
+        loadMoreButton.addEventListener('click', () => {
+            currentPage++; // Increment the page number
+            searchRecipes(); // Fetch next page of results
+        });
     </script>
 </body>
 </html>
