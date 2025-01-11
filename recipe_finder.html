@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Finder</title>
+    <style>
+        body {
+            border-color: 5px solid #7f5e3f; /* Soft brown border */
+            background-color: #f5f2e1; /* Light beige background */
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            position: relative;
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 20px solid #4f3b2f; /* Darker brown */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden; /* Hide the overflowing background */
+            background-image: url('https://img.freepik.com/premium-vector/seamless-pattern-with-fast-food-illustrations-pattern-element-poster-wrapping-paper-illustration_124137-677.jpg?w=826');
+            background-size: cover;
+            background-repeat: no-repeat;
+            animation: moveBackground 20s linear infinite;
+        }
+/* Animation for moving the background vertically downwards */
+@keyframes moveBackground {
+    100% {
+        background-position: 0 0; /* Start at the top */
+    }
+    0% {
+        background-position: 0 100%; /* Move to the bottom */
+    }
+}
+
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 40px;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    background-color: rgba(79, 59, 47, 0.7); /* Soft brown background */
+    display: inline-block;
+    border-radius: 15px; /* Rounded corners */
+}
+
+
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        input[type="text"] {
+            background-color: #fff;
+            border: 2px solid #d1b59e; /* Warm beige border */
+            border-radius: 8px;
+            font-size: 16px;
+            padding: 12px;
+            width: 300px;
+        }
+
+        button[type="submit"] {
+            background-color: #d76b58; /* Soft red/orange */
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px 20px;
+            transition: background-color 0.2s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #c4604f; /* Slightly darker red */
+        }
+
+        #results {
+            display: grid;
+            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            margin: 40px 0;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        #results.fade-in {
+            opacity: 1;
+        }
+
+        #results > div {
+            background-color: #f7e6d1; /* Soft warm beige */
+            border: 8px solid transparent;
+            border-image: url('https://img.freepik.com/premium-vector/seamless-pattern-with-fast-food-illustrations-pattern-element-poster-wrapping-paper-illustration_124137-677.jpg?w=826') 30 round;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            opacity: 0;
+            animation: fadeInAnimation 1.5s forwards;
+        }
+
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #results img {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            object-fit: cover;
+            height: 200px;
+            width: 100%;
+        }
+
+        #results h3 {
+            color: #4f3b2f; /* Dark brown text */
+            font-size: 24px;
+            margin: 0;
+        }
+
+        #results ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        #results li {
+            list-style: none;
+            margin-bottom: 10px;
+            color: #6a4f3a; /* Warm, soft brown */
+        }
+
+        #results a {
+            background-color: #8f5f3b; /* Warm brown button */
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            padding: 12px 20px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        #results a:hover {
+            background-color: #7f4e33; /* Slightly darker brown */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>The Ultimate Cookbook</h1>
+    </header>
+    <div class="container">
+        <form>
+            <input type="text" id="search" placeholder="Enter ingredients, e.g., tomato, cheese">
+            <button type="submit" id="submit" class="btn">Search Recipes</button>
+        </form>
+        <div id="results">
+            <!-- Recipe results will appear here -->
+        </div>
+    </div>
+
+    <script>
+        const searchForm = document.querySelector('form');
+        const searchInput = document.querySelector('#search');
+        const resultsList = document.querySelector('#results');
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            searchRecipes();
+        });
+
+        async function searchRecipes() {
+            const searchValue = searchInput.value.trim();
+            const response = await fetch(`https://api.edamam.com/search?q=${searchValue}&app_id=7aa516a5&app_key=dc836a223fb788b11ae390504d9e97ce&from=0&to=10`);
+            const data = await response.json();
+            displayRecipes(data.hits);
+        }
+
+        function displayRecipes(recipes) {
+            let html = '';
+            recipes.forEach((recipe) => {
+                html += `
+                <div>
+                    <img src="${recipe.recipe.image}" alt="${recipe.recipe.label}">
+                    <h3>${recipe.recipe.label}</h3>
+                    <ul>
+                        ${recipe.recipe.ingredientLines.map(ingredient => `<li>${ingredient}</li>`).join('')}
+                    </ul>
+                    <a href="${recipe.recipe.url}" target="_blank">View Recipe</a>
+                </div>`;
+            });
+            resultsList.innerHTML = html;
+
+            // Remove the fade-in class to restart the animation
+            resultsList.classList.remove('fade-in');
+            
+            // Trigger the fade-in effect again
+            void resultsList.offsetWidth; // This forces a reflow so the animation will restart
+            resultsList.classList.add('fade-in');
+        }
+    </script>
+</body>
+</html>
