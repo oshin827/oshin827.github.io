@@ -16,7 +16,6 @@
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
-            animation: fadeInBackground 2s ease-out;
             background-image: url('https://img.freepik.com/free-photo/grunge-paper-background_1048-10791.jpg?t=st=1736605365~exp=1736608965~hmac=36676a0c9e0db572418a331b8b55da7b91caf4166744f1e99b502c7e628dc273&w=740');
             background-size: cover;
             background-position: center;
@@ -37,7 +36,7 @@
 
         .container {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+            background-color: rgba(255, 255, 255, 0.8);
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 40px;
@@ -48,7 +47,6 @@
             animation: fadeInUp 1s forwards;
         }
 
-        /* Fade-in and slide-up animation for container */
         @keyframes fadeInUp {
             0% {
                 opacity: 0;
@@ -67,7 +65,6 @@
             animation: fadeInText 1.5s ease-out;
         }
 
-        /* Fade-in animation for the title */
         @keyframes fadeInText {
             0% {
                 opacity: 0;
@@ -85,7 +82,7 @@
         }
 
         .btn {
-            background-color: #d76b58; /* Soft red/orange */
+            background-color: #d76b58;
             color: #fff;
             font-size: 18px;
             padding: 12px 20px;
@@ -99,7 +96,6 @@
             animation: fadeInButton 1.5s ease-out 1s forwards;
         }
 
-        /* Fade-in animation for the button */
         @keyframes fadeInButton {
             0% {
                 opacity: 0;
@@ -110,21 +106,21 @@
         }
 
         .btn:hover {
-            background-color: #c4604f; /* Slightly darker red */
+            background-color: #c4604f;
         }
 
         .btn:active {
-            background-color: #a14b3e; /* Even darker red */
+            background-color: #a14b3e;
         }
 
         .btn-container {
             margin-top: 20px;
         }
 
-        /* Additional sections */
+        /* Features section layout adjustments */
         .features {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             margin-top: 50px;
             width: 100%;
             animation: fadeInUp 1.5s ease-out;
@@ -174,6 +170,62 @@
             margin: 0 auto;
             color: #4f3b2f;
         }
+
+        /* Mobile responsiveness with media query */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .btn {
+                font-size: 16px;
+                padding: 10px 15px;
+            }
+
+            .features {
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .feature-card {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+
+            .faq {
+                margin-top: 30px;
+            }
+        }
+
+        /* For very small screens (e.g., below 480px) */
+        @media screen and (max-width: 480px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            .container {
+                padding: 15px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .features {
+                margin-top: 30px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -201,18 +253,17 @@
         </div>
     </div>
 
-<!-- FAQ Section -->
-<div class="faq">
-    <h2>Frequently Asked Questions</h2>
-    <p>Do you have questions about how the site works? Here are some of the most common ones:</p>
-    <ul>
-        <li><strong>What are we?</strong> We are a platform designed to help you find delicious recipes based on the ingredients you already have at home. Our goal is to make cooking easier and more enjoyable by offering personalized recipe suggestions.</li>
-        <li><strong>How do I find recipes?</strong> Simply enter the ingredients you have, and we'll suggest some recipes for you!</li>
-        <li><strong>Can I save my favorite recipes?</strong> Yes, you can bookmark your favorite recipes for future reference.</li>
-        <li><strong>Are the recipes easy to follow?</strong> Absolutely! Each recipe comes with detailed, easy-to-follow instructions.</li>
-    </ul>
-</div>
-
+    <!-- FAQ Section -->
+    <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <p>Do you have questions about how the site works? Here are some of the most common ones:</p>
+        <ul>
+            <li><strong>What are we?</strong> We are a platform designed to help you find delicious recipes based on the ingredients you already have at home. Our goal is to make cooking easier and more enjoyable by offering personalized recipe suggestions.</li>
+            <li><strong>How do I find recipes?</strong> Simply enter the ingredients you have, and we'll suggest some recipes for you!</li>
+            <li><strong>Can I save my favorite recipes?</strong> Yes, you can bookmark your favorite recipes for future reference.</li>
+            <li><strong>Are the recipes easy to follow?</strong> Absolutely! Each recipe comes with detailed, easy-to-follow instructions.</li>
+        </ul>
+    </div>
 
 </body>
 </html>
