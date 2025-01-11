@@ -30,3 +30,26 @@ function displayRecipes(recipes) {
     })
     resultsList.innerHTML = html;
 }
+function displayRecipes(recipes) {
+    let html = '';
+    recipes.forEach((recipe) => {
+        html += `
+        <div>
+            <img src="${recipe.recipe.image}" alt="${recipe.recipe.label}">
+            <h3>${recipe.recipe.label}</h3>
+            <ul>
+                ${recipe.recipe.ingredientLines.map(ingredient => `<li>${ingredient}</li>`).join('')}
+            </ul>
+            <a href="${recipe.recipe.url}" target="_blank">View Recipe</a>
+        </div>`;
+    });
+    resultsList.innerHTML = html;
+
+    // Remove the fade-in class to restart the animation
+    resultsList.classList.remove('fade-in');
+    
+    // Trigger the fade-in effect again
+    void resultsList.offsetWidth; // This forces a reflow so the animation will restart
+    resultsList.classList.add('fade-in');
+}
+
