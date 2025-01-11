@@ -126,6 +126,7 @@ button[type="submit"]:hover {
 #results a:hover {
     background-color: #0069d9;
 }
+
 /* Fade-in animation */
 @keyframes fadeIn {
     from {
