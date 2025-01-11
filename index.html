@@ -14,8 +14,8 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+            min-height: 100vh; /* Allows scrolling */
+            overflow-x: hidden; /* Prevents horizontal scrolling */
             background-image: url('https://img.freepik.com/free-photo/grunge-paper-background_1048-10791.jpg?t=st=1736605365~exp=1736608965~hmac=36676a0c9e0db572418a331b8b55da7b91caf4166744f1e99b502c7e628dc273&w=740');
             background-size: cover;
             background-position: center;
@@ -34,6 +34,11 @@
             }
         }
 
+        /* Add this to ensure smooth scrolling for mobile users */
+        html, body {
+            scroll-behavior: smooth;
+        }
+
         .container {
             text-align: center;
             background-color: rgba(255, 255, 255, 0.8);
@@ -45,7 +50,6 @@
             opacity: 0;
             transform: translateY(50px);
             animation: fadeInUp 1s forwards;
-            box-sizing: border-box; /* Ensures padding doesn't affect the overall width */
         }
 
         @keyframes fadeInUp {
@@ -124,9 +128,6 @@
             justify-content: space-between;
             margin-top: 50px;
             width: 100%;
-            padding-left: 20px;
-            padding-right: 20px;
-            box-sizing: border-box; /* Ensures padding doesn't affect the layout */
             animation: fadeInUp 1.5s ease-out;
         }
 
@@ -161,9 +162,6 @@
         .faq {
             text-align: center;
             margin-top: 60px;
-            padding-left: 20px;
-            padding-right: 20px;
-            box-sizing: border-box;
         }
 
         .faq h2 {
@@ -201,8 +199,6 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding-left: 10px;
-                padding-right: 10px;
             }
 
             .feature-card {
@@ -212,8 +208,6 @@
 
             .faq {
                 margin-top: 30px;
-                padding-left: 15px;
-                padding-right: 15px;
             }
         }
 
@@ -234,8 +228,6 @@
 
             .features {
                 margin-top: 30px;
-                padding-left: 10px;
-                padding-right: 10px;
             }
         }
 
@@ -277,6 +269,5 @@
             <li><strong>Are the recipes easy to follow?</strong> Absolutely! Each recipe comes with detailed, easy-to-follow instructions.</li>
         </ul>
     </div>
-
 </body>
 </html>
