@@ -7,8 +7,8 @@
     <title>Food Finder</title>
     <style>
         body {
-            border-color: 5px solid #7f5e3f; /* Soft brown border */
-            background-color: #f5f2e1; /* Light beige background */
+            border-color: 5px solid #7f5e3f;
+            background-color: #f5f2e1;
             font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             font-size: 16px;
             line-height: 1.5;
@@ -21,22 +21,18 @@
             color: #fff;
             text-align: center;
             padding: 40px 20px;
-            border-bottom: 20px solid #4f3b2f; /* Darker brown */
+            border-bottom: 20px solid #4f3b2f;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            overflow: hidden; /* Hide the overflowing background */
+            overflow: hidden;
             background-image: url('https://img.freepik.com/premium-vector/seamless-pattern-with-fast-food-illustrations-pattern-element-poster-wrapping-paper-illustration_124137-677.jpg?w=826');
             background-size: cover;
             background-repeat: no-repeat;
             animation: moveBackground 20s linear infinite;
         }
-        /* Animation for moving the background vertically downwards */
+
         @keyframes moveBackground {
-            100% {
-                background-position: 0 0; /* Start at the top */
-            }
-            0% {
-                background-position: 0 100%; /* Move to the bottom */
-            }
+            100% { background-position: 0 0; }
+            0% { background-position: 0 100%; }
         }
 
         h1 {
@@ -46,9 +42,9 @@
             margin: 0;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             padding: 10px;
-            background-color: rgba(79, 59, 47, 0.7); /* Soft brown background */
+            background-color: rgba(79, 59, 47, 0.7);
             display: inline-block;
-            border-radius: 15px; /* Rounded corners */
+            border-radius: 15px;
         }
 
         form {
@@ -58,44 +54,35 @@
             margin: 40px 0;
         }
 
-        input[type="text"] {
-            background-color: #fff;
-            border: 2px solid #d1b59e; /* Warm beige border */
-            border-radius: 8px;
-            font-size: 16px;
-            padding: 12px;
-            width: 300px;
-        }
-
-        select {
+        input[type="text"], select {
             background-color: #fff;
             border: 2px solid #d1b59e;
             border-radius: 8px;
             font-size: 16px;
             padding: 12px;
-            margin-left: 10px;
+            margin: 5px;
         }
 
         button[type="submit"] {
-            background-color: #d76b58; /* Soft red/orange */
+            background-color: #d76b58;
             border: none;
             border-radius: 8px;
             color: #fff;
             cursor: pointer;
             font-size: 16px;
             padding: 12px 20px;
-            transition: background-color 0.2s;
+            margin: 5px;
         }
 
         button[type="submit"]:hover {
-            background-color: #c4604f; /* Slightly darker red */
+            background-color: #c4604f;
         }
 
         #results {
             display: grid;
             gap: 40px;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            margin: 40px 0;
+            margin: 40px;
             opacity: 0;
             transition: opacity 1.5s ease-in-out;
         }
@@ -105,7 +92,7 @@
         }
 
         #results > div {
-            background-color: #f7e6d1; /* Soft warm beige */
+            background-color: #cfa98a;
             border: 8px solid transparent;
             border-image: url('https://img.freepik.com/premium-vector/seamless-pattern-with-fast-food-illustrations-pattern-element-poster-wrapping-paper-illustration_124137-677.jpg?w=826') 30 round;
             border-radius: 8px;
@@ -113,19 +100,12 @@
             display: flex;
             flex-direction: column;
             padding: 10px;
-            opacity: 0;
             animation: fadeInAnimation 1.5s forwards;
         }
 
         @keyframes fadeInAnimation {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         #results img {
@@ -137,7 +117,7 @@
         }
 
         #results h3 {
-            color: #4f3b2f; /* Dark brown text */
+            color: #4f3b2f;
             font-size: 24px;
             margin: 0;
         }
@@ -150,27 +130,27 @@
         #results li {
             list-style: none;
             margin-bottom: 10px;
-            color: #6a4f3a; /* Warm, soft brown */
+            color: #6a4f3a;
         }
 
         #results a {
-            background-color: #8f5f3b; /* Warm brown button */
+            background-color: #8f5f3b;
             border-radius: 8px;
             color: #fff;
             font-size: 16px;
             padding: 12px 20px;
             text-align: center;
             text-decoration: none;
-            transition: background-color 0.2s;
+            margin-top: auto;
         }
 
         #results a:hover {
-            background-color: #7f4e33; /* Slightly darker brown */
+            background-color: #7f4e33;
         }
 
         #load-more {
             display: none;
-            background-color: #4f3b2f; /* Dark brown */
+            background-color: #4f3b2f;
             border-radius: 8px;
             color: #fff;
             padding: 12px 20px;
@@ -193,14 +173,17 @@
         <form>
             <input type="text" id="search" placeholder="Enter ingredients, e.g., tomato, cheese">
             <select id="api-choice">
-                <option value="edamam">Edamam</option>
+                <option value="themealdb">TheMealDB</option>
+                <option value="thecocktaildb">TheCocktailDB</option>
                 <option value="spoonacular">Spoonacular</option>
-            </select>
+                <option value="edamam">Edamam</option>
+                <option value="tasty">Tasty (via RapidAPI)</option>
+                <option value="openrecipes">Open Recipe DB</option>
+                <option value="openfoodfacts">Open Food Facts</option>
+            </select>         
             <button type="submit" id="submit" class="btn">Search Recipes</button>
         </form>
-        <div id="results">
-            <!-- Recipe results will appear here -->
-        </div>
+        <div id="results"></div>
         <button id="load-more">Load More</button>
     </div>
 
@@ -210,88 +193,130 @@
         const resultsList = document.querySelector('#results');
         const apiChoice = document.querySelector('#api-choice');
         const loadMoreButton = document.querySelector('#load-more');
-        
-        let currentPage = 0;
+
+        let currentPage = 1;
+        let searchValue = '';
         let totalResults = 0;
-        let totalPages = 0;
-        let searchValue = ''; // To store the search query
 
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            currentPage = 1;
+            searchValue = searchInput.value.trim();
+            resultsList.innerHTML = '';
+            searchRecipes();
+        });
+
+        loadMoreButton.addEventListener('click', () => {
+            currentPage++;
             searchRecipes();
         });
 
         async function searchRecipes() {
-            searchValue = searchInput.value.trim(); // Store search input value
             const selectedAPI = apiChoice.value;
-
-            if (searchValue === '') return; // Don't search if the input is empty
-
-            currentPage = 0; // Reset to page 0 whenever new search is performed
-            resultsList.innerHTML = ''; // Clear previous results
-            loadMoreButton.style.display = 'none'; // Hide the load more button initially
-
+            const startIndex = (currentPage - 1) * 10;
             let url = '';
 
-            if (selectedAPI === 'edamam') {
-                url = `https://api.edamam.com/search?q=${searchValue}&app_id=7aa516a5&app_key=dc836a223fb788b11ae390504d9e97ce&from=${currentPage * 10}&to=${(currentPage + 1) * 10}`;
+            if (selectedAPI === 'themealdb') {
+                url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchValue}`;
+            } else if (selectedAPI === 'thecocktaildb') {
+                url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${searchValue}`;
             } else if (selectedAPI === 'spoonacular') {
-                const spoonacularApiKey = '7e1f0ffae28d42f7b7c85ef36005f46f';
-                url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${spoonacularApiKey}&number=10&offset=${currentPage * 10}`;
+                const spoonacularApiKey = 'YOUR_SPOONACULAR_API_KEY';
+                url = `https://api.spoonacular.com/recipes/complexSearch?query=${searchValue}&apiKey=${spoonacularApiKey}&number=10&offset=${startIndex}`;
+            } else if (selectedAPI === 'edamam') {
+                const edamamAppId = 'YOUR_EDAMAM_APP_ID';
+                const edamamAppKey = 'YOUR_EDAMAM_APP_KEY';
+                url = `https://api.edamam.com/search?q=${searchValue}&app_id=${edamamAppId}&app_key=${edamamAppKey}&from=${startIndex}&to=${startIndex + 10}`;
+            } else if (selectedAPI === 'tasty') {
+                const tastyApiKey = 'YOUR_RAPIDAPI_KEY';
+                url = `https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&query=${searchValue}&rapidapi-key=${tastyApiKey}`;
             }
 
-            const response = await fetch(url);
-            const data = await response.json();
-            handleAPIResponse(data, selectedAPI);
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                handleAPIResponse(data, selectedAPI);
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
         }
 
         function handleAPIResponse(data, selectedAPI) {
             let recipes = [];
             totalResults = 0;
-            totalPages = 0;
 
-            if (selectedAPI === 'edamam') {
-                recipes = data.hits;
-                totalResults = data.count;
-                totalPages = Math.ceil(totalResults / 10);
+            if (selectedAPI === 'themealdb' || selectedAPI === 'thecocktaildb') {
+                recipes = data.drinks || data.meals || [];
+                totalResults = recipes.length;
             } else if (selectedAPI === 'spoonacular') {
-                recipes = data.results;
-                totalResults = data.totalResults;
-                totalPages = Math.ceil(totalResults / 10);
+                recipes = data.results || [];
+                totalResults = data.totalResults || 0;
+            } else if (selectedAPI === 'edamam') {
+                recipes = data.hits || [];
+                totalResults = data.count || 0;
+            } else if (selectedAPI === 'tasty') {
+                recipes = data.results || [];
+                totalResults = data.count || 0;
             }
 
-            displayRecipes(recipes);
-            if (currentPage < totalPages - 1) {
+            displayRecipes(recipes, selectedAPI);
+        }
+
+        function displayRecipes(recipes, selectedAPI) {
+            if (!Array.isArray(recipes)) {
+                console.error('No recipes to display.');
+                return;
+            }
+
+            let html = '';
+            recipes.forEach((item) => {
+                let image = '', title = '', ingredients = [], link = '';
+
+                if (selectedAPI === 'themealdb' || selectedAPI === 'thecocktaildb') {
+                    image = item.strDrinkThumb || item.strMealThumb;
+                    title = item.strDrink || item.strMeal;
+                    ingredients = Object.keys(item).filter(key => key.includes('strIngredient') && item[key]).map(key => item[key]);
+                    link = `https://www.themealdb.com/meal/${item.idMeal}` || `https://www.thecocktaildb.com/drink/${item.idDrink}`;
+                } else if (selectedAPI === 'spoonacular') {
+                    image = item.image;
+                    title = item.title;
+                    ingredients = []; // Spoonacular doesn't return ingredients in this endpoint
+                    link = `https://spoonacular.com/recipes/${title.replace(/ /g, '-')}-${item.id}`;
+                } else if (selectedAPI === 'edamam') {
+                    image = item.recipe.image;
+                    title = item.recipe.label;
+                    ingredients = item.recipe.ingredientLines;
+                    link = item.recipe.url;
+                } else if (selectedAPI === 'tasty') {
+                    image = item.thumbnail_url;
+                    title = item.title;
+                    ingredients = []; // Tasty doesn't return ingredients directly
+                    link = item.original_video_url;
+                }
+
+                html += `
+                    <div>
+                        <img src="${image}" alt="${title}">
+                        <h3>${title}</h3>
+                        <ul>${ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                        <a href="${link}" target="_blank">View Recipe</a>
+                    </div>
+                `;
+            });
+
+            resultsList.innerHTML += html;
+
+            // Fade-in animation
+            resultsList.classList.remove('fade-in');
+            void resultsList.offsetWidth;
+            resultsList.classList.add('fade-in');
+
+            if (currentPage * 10 < totalResults) {
                 loadMoreButton.style.display = 'block';
             } else {
                 loadMoreButton.style.display = 'none';
             }
         }
-
-        function displayRecipes(recipes) {
-            let html = '';
-            recipes.forEach((recipe) => {
-                html += `
-                    <div>
-                        <img src="${recipe.image || recipe.recipe.image}" alt="${recipe.title || recipe.recipe.label}">
-                        <h3>${recipe.title || recipe.recipe.label}</h3>
-                        <ul>
-                            ${(recipe.ingredients || recipe.recipe.ingredientLines).map(ingredient => `<li>${ingredient}</li>`).join('')}
-                        </ul>
-                        <a href="${recipe.sourceUrl || recipe.recipe.url}" target="_blank">View Recipe</a>
-                    </div>
-                `;
-            });
-            resultsList.innerHTML += html; // Append new results
-
-            // Trigger the fade-in effect
-            resultsList.classList.add('fade-in');
-        }
-
-        loadMoreButton.addEventListener('click', () => {
-            currentPage++; // Increment the page number
-            searchRecipes(); // Fetch next page of results
-        });
     </script>
 </body>
 </html>
