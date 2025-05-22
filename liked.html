@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Liked Recipes</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .recipe { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+    .recipe img { max-width: 150px; display: block; margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Your Liked Recipes</h1>
+  <div id="liked-recipes"></div>
+
+  <script>
+    // Get logged-in user
+    const loggedInUser = localStorage.getItem('loggedInUser');
+    if (!loggedInUser) {
+      document.getElementById('liked-recipes').innerHTML = '<p>Please log in to see your liked recipes.</p>';
+    } else {
+      const users = JSON.parse(localStorage.getItem('users')) || {};
+      const user = users[loggedInUser];
+
+      if (!user || !user.liked || user.liked.length === 0) {
+        document.getElementById('liked-recipes').innerHTML = '<p>You have no liked recipes yet.</p>';
+      } else {
+        const container = document.getElementById('liked-recipes');
+        user.liked.forEach(recipe => {
+          // Some recipes might have different data structures, adjust accordingly
+          const title = recipe.title || recipe.strMeal || 'No title';
+          const image = recipe.image || recipe.strMealThumb || '';
+          const sourceUrl = recipe.sourceUrl || recipe.strSource || '#';
+
+          const recipeDiv = document.createElement('div');
+          recipeDiv.className = 'recipe';
+
+          recipeDiv.innerHTML = `
+            <h3>${title}</h3>
+            ${image ? `<img src="${image}" alt="${title}">` : ''}
+            <a href="${sourceUrl}" target="_blank">View Recipe</a>
+          `;
+
+          container.appendChild(recipeDiv);
+        });
+      }
+    }
+  </script>
+</body>
+</html>
