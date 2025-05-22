@@ -1,275 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Food Finder</title>
-    <style>
-        body {
-            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-            margin: 0;
-            padding: 0;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Ultimate Cookbook</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fff9f5, #ffeede);
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --primary: #ff6f61;
+      --primary-dark: #e85a4f;
+      --text-color: #333;
+    }
 
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://img.freepik.com/premium-vector/seamless-pattern-with-fast-food-illustrations-pattern-element-poster-wrapping-paper-illustration_124137-677.jpg?w=826');
+      background-size: 300px 300px;
+      animation: scrollBackground 40s linear infinite;
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+    }
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            min-height: 100vh; /* Allows scrolling */
-            overflow-x: hidden; /* Prevents horizontal scrolling */
-            background-image: url('https://img.freepik.com/free-photo/grunge-paper-background_1048-10791.jpg?t=st=1736605365~exp=1736608965~hmac=36676a0c9e0db572418a331b8b55da7b91caf4166744f1e99b502c7e628dc273&w=740');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            animation: moveBackground 20s linear infinite;
-        }
+    @keyframes scrollBackground {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 0 -300px;
+      }
+    }
 
-        /* Animation for moving the background */
-        @keyframes moveBackground {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 100% 100%;
-            }
-        }
+    .top-right {
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      gap: 12px;
+      z-index: 10;
+    }
 
-        /* Add this to ensure smooth scrolling for mobile users */
-        html, body {
-            scroll-behavior: smooth;
-        }
+    .top-right a {
+      text-decoration: none;
+      padding: 10px 20px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 8px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
 
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 90%;
-            max-width: 800px;
-            opacity: 0;
-            transform: translateY(50px);
-            animation: fadeInUp 1s forwards;
-        }
+    .top-right a:hover {
+      background-color: var(--primary-dark);
+    }
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* Title section - simple box with subtle border */
+    .title-section {
+      max-width: 640px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: 16px 16px 0 0;
+      border: 2px solid var(--primary);
+      padding: 40px 30px 30px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-        h1 {
-            font-size: 36px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            animation: fadeInText 1.5s ease-out;
-        }
+    .title-section h1 {
+      margin: 0;
+      font-size: 3rem;
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
 
-        @keyframes fadeInText {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
+    .title-section h2 {
+      margin: 10px 0 0;
+      font-size: 1.9rem;
+      color: #444;
+      font-weight: 400;
+    }
 
-        p {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeInText 1.5s ease-out 0.5s forwards;
-        }
+    /* Main content container */
+    .content {
+      max-width: 640px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      padding: 30px 30px 40px;
+      margin-bottom: 40px;
+      text-align: center;
+    }
 
-        .btn {
-            background-color: #d76b58;
-            color: #fff;
-            font-size: 18px;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            display: inline-block;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            opacity: 0;
-            animation: fadeInButton 1.5s ease-out 1s forwards;
-        }
+    /* Bio Section - rounded rectangle with soft shadow */
+    .bio {
+      max-width: 640px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      padding: 30px 30px;
+      margin-bottom: 40px;
+    }
 
-        @keyframes fadeInButton {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
+    .bio h3 {
+      font-size: 1.7rem;
+      color: var(--primary-dark);
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
 
-        .btn:hover {
-            background-color: #c4604f;
-        }
+    .bio p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      color: #555;
+      margin: 0;
+    }
 
-        .btn:active {
-            background-color: #a14b3e;
-        }
+    /* Reviews Section - pill-shaped container */
+    .reviews {
+      max-width: 640px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: 50px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+      padding: 40px 40px;
+      color: #555;
+    }
 
-        .btn-container {
-            margin-top: 20px;
-        }
+    .reviews h3 {
+      font-size: 1.7rem;
+      color: var(--primary-dark);
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
 
-        /* Features section layout adjustments */
-        .features {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px;
-            width: 100%;
-            animation: fadeInUp 1.5s ease-out;
-        }
+    .reviews p {
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
 
-        .feature-card {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 30%;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 2s forwards;
-        }
+    /* Button styling */
+    .center-button {
+      margin-top: 30px;
+      text-align: center;
+    }
 
-        .feature-card h3 {
-            font-size: 24px;
-            color: #4f3b2f;
-            margin-bottom: 10px;
-        }
+    .center-button a {
+      text-decoration: none;
+      padding: 14px 28px;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 6px 15px rgba(255, 111, 97, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
+      user-select: none;
+      display: inline-block;
+    }
 
-        .feature-card p {
-            color: #6a4f3a;
-            font-size: 16px;
-        }
+    .center-button a:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-        }
+    @media (max-width: 600px) {
+      .title-section h1 {
+        font-size: 2.4rem;
+      }
+      .title-section h2 {
+        font-size: 1.5rem;
+      }
 
-        .faq {
-            text-align: center;
-            margin-top: 60px;
-        }
+      .content {
+        padding: 25px 20px 35px;
+      }
 
-        .faq h2 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        .faq p {
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-            color: #4f3b2f;
-        }
-
-        /* Mobile responsiveness with media query */
-        @media screen and (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 28px;
-            }
-
-            p {
-                font-size: 16px;
-            }
-
-            .btn {
-                font-size: 16px;
-                padding: 10px 15px;
-            }
-
-            .features {
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .feature-card {
-                width: 80%;
-                margin-bottom: 20px;
-            }
-
-            .faq {
-                margin-top: 30px;
-            }
-        }
-
-        /* For very small screens (e.g., below 480px) */
-        @media screen and (max-width: 480px) {
-            h1 {
-                font-size: 24px;
-            }
-
-            .container {
-                padding: 15px;
-            }
-
-            .btn {
-                font-size: 14px;
-                padding: 8px 12px;
-            }
-
-            .features {
-                margin-top: 30px;
-            }
-        }
-
-    </style>
+      .bio, .reviews {
+        padding: 25px 20px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to the Ultimate Cookbook</h1>
-        <p>Your go-to destination for discovering recipes based on ingredients you have at home.</p>
-        <div class="btn-container">
-            <a href="recipe_finder.html" class="btn">Start Searching Recipes</a>
-        </div>
-    </div>
+  <div class="top-right">
+    <a href="login.html">Login</a>
+    <a href="signup.html">Sign Up</a>
+  </div>
 
-    <!-- Features Section -->
-    <div class="features">
-        <div class="feature-card">
-            <h3>Personalized Recipes</h3>
-            <p>Get recipe suggestions based on the ingredients you have in your kitchen.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Save Your Favorites</h3>
-            <p>Bookmark your favorite recipes to access them anytime you like.</p>
-        </div>
-        <div class="feature-card">
-            <h3>Easy to Follow</h3>
-            <p>Step-by-step instructions to ensure your cooking journey is smooth and enjoyable.</p>
-        </div>
-    </div>
+  <!-- Title section -->
+  <section class="title-section" aria-label="Page Title">
+    <h1>The Ultimate Cookbook</h1>
+    <h2>Home-Cooked Recipes Made Easy</h2>
+  </section>
 
-    <!-- FAQ Section -->
-    <div class="faq">
-        <h2>Frequently Asked Questions</h2>
-        <p>Do you have questions about how the site works? Here are some of the most common ones:</p>
-        <ul>
-            <li><strong>What are we?</strong> We are a platform designed to help you find delicious recipes based on the ingredients you already have at home. Our goal is to make cooking easier and more enjoyable by offering personalized recipe suggestions.</li>
-            <li><strong>How do I find recipes?</strong> Simply enter the ingredients you have, and we'll suggest some recipes for you!</li>
-            <li><strong>Can I save my favorite recipes?</strong> Yes, you can bookmark your favorite recipes for future reference.</li>
-            <li><strong>Are the recipes easy to follow?</strong> Absolutely! Each recipe comes with detailed, easy-to-follow instructions.</li>
-        </ul>
+  <!-- Main content container -->
+  <div class="content">
+    <p>Find and explore delicious meals using simple ingredients from your kitchen.</p>
+    <div class="center-button">
+      <a href="recipe_finder.html">Get Started</a>
     </div>
+  </div>
+
+  <!-- Bio Section -->
+  <section class="bio" aria-label="Author Bio">
+    <h3>About the Author</h3>
+    <p>Passionate about making cooking simple and fun, our author has spent years exploring diverse cuisines and creating easy-to-follow recipes for every home chef.</p>
+  </section>
+
+  <!-- Reviews Section -->
+  <section class="reviews" aria-label="User Reviews">
+    <h3>User Reviews</h3>
+    <p>“This cookbook transformed my weeknight dinners! Simple, tasty, and easy to follow.” – Sarah M.</p>
+    <p>“Love the approachable recipes and clear instructions. Highly recommend!” – James L.</p>
+    <p>“A must-have for anyone looking to cook at home more often without the fuss.” – Emily R.</p>
+  </section>
 </body>
 </html>
