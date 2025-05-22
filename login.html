@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Log In</title>
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #fff9f5, #ffeede);
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --primary: #ff6f61;
+      --primary-dark: #e85a4f;
+      --text-color: #333;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://img.freepik.com/premium-vector/seamless-pattern-with-fast-food-illustrations-pattern-element-poster-wrapping-paper-illustration_124137-677.jpg?w=826');
+      background-size: 300px 300px;
+      animation: scrollBackground 40s linear infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--text-color);
+    }
+
+    @keyframes scrollBackground {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: 0 -300px;
+      }
+    }
+
+    #login-form {
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    #login-form input {
+      padding: 14px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    #login-form input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 5px rgba(255, 111, 97, 0.4);
+    }
+
+    #login-form button {
+      padding: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 6px 15px rgba(255, 111, 97, 0.4);
+    }
+
+    #login-form button:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <form id="login-form">
+    <input type="text" id="username" placeholder="Username" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Log In</button>
+  </form>
+
+  <script src="auth.js"></script>
+</body>
+</html>
